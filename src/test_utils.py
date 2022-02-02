@@ -3,9 +3,11 @@ Simple unit tests for the utilities module.
 """
 
 import unittest
-import utils
 import uuid
 import os
+import utils
+
+
 
 
 class TestUtilities(unittest.TestCase):

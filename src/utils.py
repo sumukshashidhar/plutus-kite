@@ -16,3 +16,4 @@ def read_env(variable_name):
     if value is None:
         raise LookupError("Did not find the following env variable")
     return value
+    
