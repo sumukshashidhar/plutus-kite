@@ -1,14 +1,14 @@
 """
 Module to retrieve REQUEST_TOKENS from Zerodha's Kite
 """
-from msilib.schema import Error
+from msilib.schema import Error # pylint: disable=import-error
 import time
 import platform
 import sys
 from urllib.parse import urlparse, parse_qs
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from pyvirtualdisplay import Display
+from selenium import webdriver # pylint: disable=import-error
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities # pylint: disable=import-error
+from pyvirtualdisplay import Display # pylint: disable=import-error
 
 
 
