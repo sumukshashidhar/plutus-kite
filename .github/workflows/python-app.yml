@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: TESTING
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.10
@@ -34,3 +34,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+      env:
+        USERNAME: ${{env.KITE_USERNAME}}
+        PASSWORD: ${{env.KITE_PASSWORD}}
+        PIN: ${{env.KITE_PIN}}
+        API_KEY: ${{env.KITE_API_KEY}}
+        API_SECRET: ${{env.KITE_API_SECRET}}
