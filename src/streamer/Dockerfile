@@ -1,9 +1,7 @@
-FROM ubuntu:20.04
-
-RUN apt-get update && apt-get install -y python3.9 python3.9-dev
+FROM python:3.8
 
 COPY . .
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
-CMD ["python3 stream.py"]
+CMD ["python stream.py"]
