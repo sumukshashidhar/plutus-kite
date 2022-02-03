@@ -1,20 +1,37 @@
 """
 Module to retrieve REQUEST_TOKENS from Zerodha's Kite
 """
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from urllib.parse import urlparse, parse_qs
-from pyvirtualdisplay import Display
+from msilib.schema import Error
 import time
 import platform
+import sys
+from urllib.parse import urlparse, parse_qs
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from pyvirtualdisplay import Display
+
 
 
 def get_token(auth, api_key, streamer_path):
+    """Feteches a request token from Kite using the auth parameters, an API Key and a webdriver path
+
+    Args:
+        auth (tuple): Tuple where index 0 - username, 1 - password, 2 - pin.
+        api_key (str): The Kite Trade API key
+        streamer_path (str): Path to the selenium webdriver installation
+
+    Raises:
+        ValueError: In case the auth tuple is not wrong
+
+    Returns:
+        str: The request token.
+    """
     try:
         # unpack the arguments from the auth combination
         username, password, pin = auth
     except ValueError:
-        raise ValueError("Auth object did not contain exactly username, password and pin in the required order")
+        raise ValueError("Auth object did not contain exactly username, \
+            password and pin in the required order") from Error
 
     # make a virtual display so that docker understands
     # do this only if we are not on macos / windows
@@ -66,9 +83,10 @@ def get_token(auth, api_key, streamer_path):
     # wait for the request processes, and then grab the current url
     time.sleep(0.5)
     url = driver.current_url
-    
+
     return parse_qs(urlparse(url).query)["request_token"][0]
 
 if __name__ == "__main__":
-    print("This module is not meant to be run independently. Please run it through either hte main file or the streamer files, or as a test case.")
-    exit(0)
+    print("This module is not meant to be run independently. \
+        Please run it through either hte main file or the streamer files, or as a test case.")
+    sys.exit(0)

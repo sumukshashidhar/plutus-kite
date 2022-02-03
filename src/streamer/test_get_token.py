@@ -1,30 +1,32 @@
+"""
+Unittest to test the efficacy of the selenium access token extractor.
+"""
 import unittest
-from utils import read_env
+import sys
 from dotenv import load_dotenv
+from utils import read_env
 from get_token import get_token
-import os
+
 class TestToken(unittest.TestCase):
     """
+    Tests the efficacy of the selenium token extractor.
     """
 
     def test_token_retrieval(self):
+        """Send env variables to the selenium token extractor and extract the refresh token
+        """
         # load the environment variables from the file
         load_dotenv()
         try:
-            CHROMEDRIVER = read_env("CHROMEDRIVER")
-            USERNAME = read_env("USERNAME")
-            PASSWORD = read_env("PASSWORD")
-            PIN = read_env("PIN")
-            API_KEY = read_env("API_KEY")
+            chromedriver = read_env("CHROMEDRIVER")
+            username = read_env("USERNAME")
+            password = read_env("PASSWORD")
+            pin = read_env("PIN")
+            api_key = read_env("API_KEY")
         except LookupError:
             print("Crucial Requirements are missing. Please review the failed variable")
-            exit(1)
+            sys.exit(1)
 
         # once the requirements are loaded in, lets look at the output
-        request_token = get_token((USERNAME, PASSWORD, PIN), API_KEY, CHROMEDRIVER)
+        request_token = get_token((username, password, pin), api_key, chromedriver)
         self.assertEqual(type(request_token), type(" "))
-
-
-if __name__ == "__main__":
-    a = TestToken()
-    a.test_token_retrieval()
