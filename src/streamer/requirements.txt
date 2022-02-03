@@ -1,0 +1,6 @@
+EasyProcess==1.1
+python-dotenv==0.19.2
+PyVirtualDisplay==2.2
+selenium==3.141.0
+urllib3==1.26.8
+xvfbwrapper==0.2.9
