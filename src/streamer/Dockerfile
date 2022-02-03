@@ -6,4 +6,4 @@ COPY . .
 
 RUN pip3 install -r requirements.txt
 
-CMD ["python stream.py"]
+CMD ["python3 stream.py"]
