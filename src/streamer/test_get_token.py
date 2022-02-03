@@ -3,7 +3,7 @@ Unittest to test the efficacy of the selenium access token extractor.
 """
 import unittest
 import sys
-from dotenv import load_dotenv
+from dotenv import load_dotenv # pylint: disable=import-error
 from utils import read_env
 from get_token import get_token
 
