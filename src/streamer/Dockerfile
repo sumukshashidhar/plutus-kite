@@ -4,6 +4,6 @@ RUN apt-get update && apt-get install -y python3.9 python3.9-dev
 
 COPY . .
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 CMD ["python stream.py"]
