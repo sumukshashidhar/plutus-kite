@@ -1,7 +1,9 @@
-FROM python:3.8
+FROM ubuntu:20.04
 
-ENV API_KEY = "API_KEY_GOES_HERE"
-ENV API_SECRET = "API_SECRET_GOES_HERE"
-ENV LOGIN = "LOGIN/USER_ID GOES HERE"
-ENV PASSWORD = "PASSWORD GOES HERE"
-ENV PIN = "2FA PIN GOES HERE"
+RUN apt-get update && apt-get install -y python3.9 python3.9-dev
+
+COPY . .
+
+RUN pip install -r requirements.txt
+
+CMD ["python stream.py"]
