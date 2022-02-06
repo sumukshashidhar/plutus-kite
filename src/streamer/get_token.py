@@ -1,7 +1,6 @@
 """
 Module to retrieve REQUEST_TOKENS from Zerodha's Kite
 """
-from msilib.schema import Error # pylint: disable=import-error
 import time
 import platform
 import sys
