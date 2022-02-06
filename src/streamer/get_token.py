@@ -12,7 +12,7 @@ from pyvirtualdisplay import Display # pylint: disable=import-error
 
 
 def get_token(auth, api_key, streamer_path):
-    """Feteches a request token from Kite using the auth parameters, an API Key and a webdriver path
+    """Fetches a request token from Kite using the auth parameters, an API Key and a webdriver path
 
     Args:
         auth (tuple): Tuple where index 0 - username, 1 - password, 2 - pin.
