@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    environment: TESTING
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.10
@@ -33,4 +33,10 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        pytest --ignore ./src/streamer/test_get_token.py
+      env:
+        USERNAME: ${{env.KITE_USERNAME}}
+        PASSWORD: ${{env.KITE_PASSWORD}}
+        PIN: ${{env.KITE_PIN}}
+        API_KEY: ${{env.KITE_API_KEY}}
+        API_SECRET: ${{env.KITE_API_SECRET}}
