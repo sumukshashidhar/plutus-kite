@@ -1,7 +1,6 @@
 """
 Module to retrieve REQUEST_TOKENS from Zerodha's Kite
 """
-from msilib.schema import Error # pylint: disable=import-error
 import time
 import platform
 import sys
@@ -13,7 +12,7 @@ from pyvirtualdisplay import Display # pylint: disable=import-error
 
 
 def get_token(auth, api_key, streamer_path):
-    """Feteches a request token from Kite using the auth parameters, an API Key and a webdriver path
+    """Fetches a request token from Kite using the auth parameters, an API Key and a webdriver path
 
     Args:
         auth (tuple): Tuple where index 0 - username, 1 - password, 2 - pin.
@@ -31,7 +30,7 @@ def get_token(auth, api_key, streamer_path):
         username, password, pin = auth
     except ValueError:
         raise ValueError("Auth object did not contain exactly username, \
-            password and pin in the required order") from Error
+            password and pin in the required order") from None
 
     # make a virtual display so that docker understands
     # do this only if we are not on macos / windows
