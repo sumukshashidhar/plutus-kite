@@ -30,7 +30,7 @@ def get_token(auth, api_key, streamer_path):
         username, password, pin = auth
     except ValueError:
         raise ValueError("Auth object did not contain exactly username, \
-            password and pin in the required order") from Error
+            password and pin in the required order") from None
 
     # make a virtual display so that docker understands
     # do this only if we are not on macos / windows
