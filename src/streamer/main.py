@@ -7,23 +7,24 @@ from kiteconnect import KiteTicker
 from dotenv import load_dotenv
 from get_token import get_token
 from utils import read_env
+from get_access_token import get_access_token
 # Load the environment variables
 load_dotenv()
 ## LOADING ENV VARS FROM .env
 try:
     API_KEY = read_env("API_KEY")
     API_SECRET = read_env("API_SECRET")
-    LOGIN = read_env("LOGIN")
-    PASSW = read_env("PASSW")
+    LOGIN = read_env("USERNAME")
+    PASSW = read_env("PASSWORD")
     PIN = read_env("PIN")
-    STREAMER_PATH = read_env("STREAMER_PATH")
+    STREAMER_PATH = read_env("CHROMEDRIVER")
 except LookupError as err:
     raise LookupError("Did not find the following env variable") from err
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
-ACCESS_TOKEN = get_token((LOGIN, PASSW, PIN), API_KEY, STREAMER_PATH)
-
+REQUEST_TOKEN = get_token((LOGIN, PASSW, PIN), API_KEY, STREAMER_PATH)
+ACCESS_TOKEN = get_access_token((API_KEY, API_SECRET), REQUEST_TOKEN)
 # Check if we've already got an access token.
 if not ACCESS_TOKEN:
     print("Access token not found.")
@@ -36,21 +37,21 @@ else:
         raise ValueError("Invalid API key or Access token") from None
 
 
-def on_ticks(web_socket, ticks):
+def on_ticks(ws, ticks):
     """Callback to receive ticks."""
     logging.debug("Ticks: %s", ticks)
 
-def on_connect(web_socket, response):
+def on_connect(ws, response):
     """Callback on successful connect.
     Subscribe to a list of instrument_tokens (RELIANCE and ACC here)."""
-    web_socket.subscribe([738561, 5633])
+    ws.subscribe([738561, 5633])
 
     # Set RELIANCE to tick in `full` mode.
-    web_socket.set_mode(web_socket.MODE_FULL, [738561])
-def on_close(web_socket, code, reason):
+    ws.set_mode(ws.MODE_FULL, [738561])
+def on_close(ws, code, reason):
     """On connection close stop the main loop
     Reconnection will not happen after executing `ws.stop()`"""
-    web_socket.stop()
+    ws.stop()
 
 # Assign the callbacks.
 kws.on_ticks = on_ticks
