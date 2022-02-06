@@ -3,6 +3,18 @@ List of common utlities and subroutines to be used across files
 """
 
 import os
+import hashlib
+
+def get_sha_256(data):
+    """Get SHA256 Hash of a given data string
+
+    Args:
+        data (string): The string of data that the SHA256 hash needs to be generated for
+
+    Returns:
+        str: The hashed string of the data
+    """
+    return hashlib.sha256(data.encode()).hexdigest()
 
 
 def read_env(variable_name):
