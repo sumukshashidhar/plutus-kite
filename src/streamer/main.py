@@ -21,7 +21,7 @@ try:
 except LookupError as err:
     raise LookupError("Did not find the following env variable") from err
 
-# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 REQUEST_TOKEN = get_token((LOGIN, PASSW, PIN), API_KEY, STREAMER_PATH)
 ACCESS_TOKEN = get_access_token((API_KEY, API_SECRET), REQUEST_TOKEN)
@@ -33,6 +33,7 @@ else:
     try:
         # Initialise Kite Connect object with access token.
         kws = KiteTicker(API_KEY, ACCESS_TOKEN)
+        print("Init Kite Done!!!!!!")
     except ValueError:
         raise ValueError("Invalid API key or Access token") from None
 
@@ -44,10 +45,10 @@ def on_ticks(ws, ticks):
 def on_connect(ws, response):
     """Callback on successful connect.
     Subscribe to a list of instrument_tokens (RELIANCE and ACC here)."""
-    ws.subscribe([738561, 5633])
+    ws.subscribe([2714625, 128083204])
 
     # Set RELIANCE to tick in `full` mode.
-    ws.set_mode(ws.MODE_FULL, [738561])
+    ws.set_mode(ws.MODE_FULL, [2714625, 128083204])
 def on_close(ws, code, reason):
     """On connection close stop the main loop
     Reconnection will not happen after executing `ws.stop()`"""
